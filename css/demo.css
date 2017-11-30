@@ -1,0 +1,214 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Open Sans", Helvetica;
+    font-size: 0.9em;
+    font-weight: 300;
+    line-height: 1.6em;
+    margin: 0;
+}
+
+#graphic {
+    width: 90%;
+    margin: 0 auto;
+}
+.title {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+section {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 8em;
+}
+
+a {
+    text-decoration: none;
+    color: #0587fb;
+    font-weight: 400;   
+}
+
+a:hover {
+    color: #fb05ad;
+}
+
+.whitespace {
+    display: block;
+    height: 200px;
+}
+/* Header */
+
+.header {
+    display: block;
+    width: 100%;
+    height: 80vh;
+    background-color: #d3d3d3;
+    text-align: center;
+    margin: 0;
+}
+
+.header-title {
+    position: relative;
+    font-family: "Merriweather";
+    margin: 0;
+    top:45%;
+}
+
+.header-title h1 {
+    margin-top: 0;
+}
+
+/* Content */
+
+section {
+        transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+}
+
+.inner-wrapper {
+    width: 80%;
+    min-width: 700px;
+    max-width: 1000px;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding-top: 5em;
+}
+
+.main-content {
+    display: inline-block;
+    max-width: 50%;
+    box-sizing: border-box;
+    padding-left: 2em;
+}
+
+.main-content-left {
+    position: relative;
+    left: 50%;
+}
+
+.side-content {
+    display: inline-block;
+    width: 30em;
+    max-width: 50%;
+    height: ;
+    box-sizing: border-box;
+    vertical-align: top;
+    float: right;
+}
+
+.is-fixed {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 25vh;
+}
+
+.figure {
+    display: block;
+    background-color: cadetblue;
+    width: 80%;
+    height: 300px;
+    margin: 0 auto;
+    border: 1px dashed #666;
+    position: relative;
+    top: 0;
+    transition: opacity 2s;
+    -webkit-transition: opacity 2s;
+    
+}
+
+.figure img{
+    width: 100%;
+    height: auto;
+}
+
+.fade {
+    opacity: 0;
+    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+}
+
+.fade img {
+        transition: opacity 0.5s;
+}
+
+/* TRIANGLE */
+
+#triangle-section {
+    height: auto;
+    display: block;
+}
+
+#mySVG {
+    position: sticky;
+    position: -webkit-sticky;
+    top: 15%;
+    width: 400px;
+    height: 210px;
+    margin-left: -50px;
+}
+
+#timer {
+    background-color: grey;
+    padding: 2em;
+    color: white;
+    position: fixed;
+    bottom: 15%;
+}
+
+/* ROUTE */
+
+#map {
+    vertical-align: top;
+}
+
+.cls-7 {
+    fill:none;stroke:#ff2f2f;stroke-width:2px;
+}
+
+#map-section {
+    display: block;
+    height: 2000px;
+}
+
+#map-helper {
+    height: 1000px;
+    float: left;
+}
+
+/* VIDEO */
+
+video {
+    width: 100%;
+    height: auto;
+}
+
+/* BG*/
+
+.whole-page {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom: 0;
+
+}
+#bg-section {
+    background-image: url(../media/images/bg1.jpeg);
+    background-size: cover;
+    background-repeat: none;
+    background-attachment: fixed;
+        background-position: center;
+    transition: background-image 2s;
+}
+
+#bg1 {
+    height: 2000px;
+}
+
+#bg2 {
+    height: 2000px;
+}
