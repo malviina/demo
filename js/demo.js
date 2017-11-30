@@ -59,7 +59,19 @@ function drawTriangle() {
 // DRAWING THE ROUTE ON THE MAP
 
 var reitti = document.getElementById("reitti");
-var length_reitti = reitti.getTotalLength();
+
+// The length of the polyline needed some tweaking as the getTotalLength didn't work on Firefox. But this fixes it.
+
+var length_reitti = 0;
+var prevPos;
+for (var i = 0 ; i < reitti.points.numberOfItems;i++) {
+    var pos = reitti.points.getItem(i);
+    if (i > 0) {
+        var distance = Math.sqrt(Math.pow((pos.x - prevPos.x), 2) + Math.pow((pos.y - prevPos.y), 2));
+        length_reitti += distance;
+    }
+    prevPos = pos;
+}
 
 reitti.style.strokeDasharray = length_reitti;
 
