@@ -5,7 +5,7 @@ html {
 body {
     font-family: "Open Sans", Helvetica;
     font-size: 0.9em;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 1.6em;
     margin: 0;
 }
@@ -24,32 +24,66 @@ section {
     display: block;
     width: 100%;
     height: auto;
-    margin-bottom: 8em;
+    margin-top: 8em;
 }
 
 a {
     text-decoration: none;
-    color: #0587fb;
+    color: #1fabff;
     font-weight: 400;   
 }
 
 a:hover {
-    color: #fb05ad;
+    color: #ff731f;
+}
+
+.button {
+    display: inline-block;
+    width: 3.5em;
+    border: 1px solid #999;
+    border-radius: 50px;
+    text-align: center;
+    color: #444;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 0.5em;
+    transition: 0.2s;
+}
+
+
+.button:hover{
+    cursor: pointer;
+    background-color: #999;
+    color: white;
 }
 
 .whitespace {
     display: block;
     height: 200px;
 }
+
+pre {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px dotted #b9b6b4;
+    margin: 2em 1em;
+    background-color: #ffd7c9;
+}
+
+.grey {
+    color: #888;
+}
+
 /* Header */
 
 .header {
     display: block;
     width: 100%;
+    margin: 0 auto;
     height: 80vh;
-    background-color: #d3d3d3;
     text-align: center;
-    margin: 0;
+    margin-bottom: 2em;
 }
 
 .header-title {
@@ -61,6 +95,16 @@ a:hover {
 
 .header-title h1 {
     margin-top: 0;
+    font-size: 3em;
+}
+
+.header-left {
+    width: 25%;
+    height: 80vh;
+    position: absolute;
+    right: 50vw;
+    background-color: #2096b7;
+    z-index: -99;
 }
 
 /* Content */
@@ -107,23 +151,30 @@ section {
     top: 25vh;
 }
 
+
+/* TRIGGER */
+
 .figure {
     display: block;
-    background-color: cadetblue;
     width: 80%;
-    height: 300px;
     margin: 0 auto;
-    border: 1px dashed #666;
     position: relative;
     top: 0;
     transition: opacity 2s;
-    -webkit-transition: opacity 2s;
-    
+    -webkit-transition: opacity 2s;    
 }
 
 .figure img{
     width: 100%;
     height: auto;
+}
+
+.caption {
+    font-size: 75%;
+    color: #666;
+    font-weight: 400;
+    font-style: italic;
+    margin-left: 0.5em;
 }
 
 .fade {
@@ -136,6 +187,12 @@ section {
         transition: opacity 0.5s;
 }
 
+.trigger {
+    text-align: center;
+    background-color: yellow;
+    width: 5em;
+    margin: 0 auto;
+}
 /* TRIANGLE */
 
 #triangle-section {
@@ -152,12 +209,32 @@ section {
     margin-left: -50px;
 }
 
-#timer {
+
+#timerbox {
+    display: none;
     background-color: grey;
     padding: 2em;
     color: white;
     position: fixed;
     bottom: 15%;
+    left: 10%;
+}
+
+#timer-legend {
+    position: relative;
+    float: left;
+    margin-right: 1em;
+    text-align: right;
+}
+
+#timer {
+    position: relative;
+    float: right;
+}
+
+#triangle-helper {
+    height: 500px;
+    float: left;
 }
 
 /* ROUTE */
@@ -180,6 +257,13 @@ section {
     float: left;
 }
 
+#nice {
+    margin-top: 3em;
+    text-align: center;
+    font-size: 1.2em;
+    transition: 2s;
+}
+
 /* VIDEO */
 
 video {
@@ -189,26 +273,58 @@ video {
 
 /* BG*/
 
+#bg-section {
+    height: 5000px;
+    margin-top: 0;
+}
+
 .whole-page {
     display: block;
     width: 100%;
-    height: auto;
-    margin-bottom: 0;
-
+    height: 100vh;
+    position: sticky;
+    top: 0;
 }
-#bg-section {
-    background-image: url(../media/images/bg1.jpeg);
-    background-size: cover;
-    background-repeat: none;
-    background-attachment: fixed;
-        background-position: center;
+
+#changing-img {
+    display: block;
+    width: 100%;
+    height: 100vh;
     transition: background-image 2s;
+    position: sticky;
+        overflow-y: hidden;
+}
+
+#changing-img img {
+    width: 100%;
+    overflow: hidden;
+    position: absolute;
+    transition: opacity 2.5s;
+    margin: 0;
 }
 
 #bg1 {
-    height: 2000px;
+    opacity: 1;
 }
 
 #bg2 {
-    height: 2000px;
+    opacity: 0;
+}
+
+#bg-trigger {
+    float: left;
+    top: 50%;
+    position: relative;
+    z-index: 99;
+}
+
+#end {
+    bottom: 60vh;
+    text-align: center;
+    margin: 0 auto;
+    color: white;
+    position: relative;
+    margin: 0;
+    line-height: 0;
+    text-shadow: 0px 2px 4px #222;
 }
