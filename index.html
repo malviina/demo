@@ -2,14 +2,18 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <link rel="stylesheet" type="text/css" href="./css/demo.css">
+        <link rel="stylesheet" type="text/css" href="css/scrollexample.css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.6/Chart.bundle.min.js"></script>
     </head>
 
     <body>
         <div class="header">
+            
+            <div class="inner-wrapper"><div class="header-left"></div></div>
             <div class="header-title">
                 <h1>Demo page</h1>
                 <p>Tools for digital storytelling by Malviina Hallamaa</p>
+                <div id="social"><a href="#"></a></div>
             </div>
         </div>
 
@@ -21,20 +25,20 @@
                     
                     <p> This is an example of the use of a trigger to make something happen. I'm using a <strong>waypoint.js</strong> javascript library to trigger the event. As the trigger below (highlighted with the text "trigger") reaches the halfway of the screen (as it's offset is set to 50%, otherwise the event would be triggered as the trigger reaches the top of the screen) the picture on the right emerges. And as you scroll up again it fades away.</p>
                     
-                    <div id="trigger0"><strong>TRIGGER</strong></div>
+                    <div id="trigger0" class="trigger"><strong>TRIGGER</strong></div>
                     
-                    <p>The fading effect is done with css-property <code>opacity</code> and <code>transition</code> speed is set to 1s.</p>
+                    <p>The fading effect is done with css-properties <code>opacity</code> and <code>transition</code>.</p>
                     
 
                     
-                    <p> The picture has a <code>position</code> attribute value <code>sticky</code>. That makes it stick to certain position on the screen until the end of the section is reached. There were other ways to achieve the same effect. One was making a div with a height of screen height and making it change it's position from relative to fixed, and keeping the desired figure in the middle of the div. But this seems to work well enough.</p>
+                    <p> The picture has a <code>position</code> attribute value <code>sticky</code>. That makes it stick to certain position on the screen until the end of the section is reached. There were other ways to achieve the same effect. One was making a div with a height of screen height and making it change it's position from relative to fixed, and keeping the desired figure in the middle of the div. But this seems to work well enough for now.</p>
                     
                     <p>At the end of this section I've positioned another trigger. That one makes the picture fade out again.</p>
                     
                     <p>This is a good way to show fact box or maps or figures as the text is scrolled.</p>
 
                     
-                    <div id="trigger1"><strong>TRIGGER</strong></div>                        
+                    <div id="trigger1" class="trigger"><strong>TRIGGER</strong></div>                        
 
                     <div class="whitespace"></div>
                     <div class="whitespace"></div>
@@ -42,7 +46,8 @@
                 </div>
                 <div class="side-content is-fixed">
                     <div  id="figure1" class="figure fade">
-                        <img src="./media/images/20140804_121154.jpg"/>
+                        <img src="images/20140804_121154.jpg"/>
+                        <div class="caption">That's me, hi.</div>
                     </div>
                 </div>
             </div>
@@ -51,8 +56,9 @@
     
         <section>
             <div class="inner-wrapper">
-                <div id="timer" style="display: none"></div>
+                <div id="timerbox"><div id="timer-legend">helper_scrolled:<br>helper_height:<br>screen-height:<br>scrollpercent:</div><div id="timer"></div></div>
                 <div id="triangle-section">
+                    <div id="triangle-helper"></div>
                 <div class="main-content">
                     
                     <h2 class="title">Second section: Drawing vector graphics through scroll</h2>
@@ -60,18 +66,49 @@
                     <p><strong>Scroll down to draw a triangle.</strong></p>
                     <p><strong>Scroll back up to reverse the drawing.</strong></p>
                     
-                    <p>This trick I learned from a tutorial (A LINK!).</p>
+                    <p>This trick I learned from this <a href="https://www.w3schools.com/howto/howto_js_scrolldrawing.asp">tutorial</a> by w3schools.com.</p>
                     
                     <p>However, to make it work on this demo page, I had to tweak it a little. The scrollpercentage calculation had to be fixed, as I want the path to reveal itself as the section is scrolled through instead of the whole page, which is how it's done on the tutorial.</p>
                     
-                    <p>I fixed this like this:</p>
                     
-                    <p>COMING SOON!</p>
-                    <div class="whitespace"></div>
                     
+                    <p>In the tutorial, the percentage of the scroll (<code>scrollpercent</code>) was calculated like this:</p>
+            <pre>       <code>var scrollpercent = (document.body.scrollTop +
+            document.documentElement.scrollTop)
+            / (document.documentElement.scrollHeight
+            - document.documentElement.clientHeight);</code></pre>
+                    
+                    <p>This gives the value of how much the body element is scrolled down compared to the height of the whole document.</p>
+                    
+                    <p> I created a little "helper" div element that I places at the beginning of the section. It has a certain height, zero width, and it is floating on the side. The scrollpercent is calculated against the helper instead of the whole document. </p>
+                    
+                    <pre><code>
+        var helper = document.getElementById("triangle-helper");
+        var helper_height = helper.scrollHeight;
+        var screen_height = document.documentElement.clientHeight;
+
+        var rect = helper.getBoundingClientRect(); <span class="grey">// This is to
+        find the position of the helper in relation to the 
+        window screen</span>
+        var helper_scrolled = screen_height - rect.top - 500; 
+        <span class="grey">// the last value gives some offset so that the drawing
+        begins a bit later then when the sections top comes to view</span>
+
+        if (helper_scrolled &lt; 0) {
+            helper_scrolled = 0;
+        }
+
+        if (helper_scrolled &gt; helper_height) {
+            helper_scrolled = helper_height;
+        }
+
+        var scrollpercent = helper_scrolled / helper_height;
+                    </code></pre>
+                    <p>Click here to show a box that shows the different values:
+                        <span id="showTimer" class="button" onclick="showTimer()">Show</span></p>
                     
                 </div>
-            
+
                 <div class="side-content is-fixed" style="margin: 0 auto">
                      <svg id="mySVG">
                         <path fill="none" stroke="red" stroke-width="3" id="triangle" d="M150 0 L75 200 L225 200 Z" />
@@ -90,9 +127,10 @@
                     
                     <h3>But who wants to draw triangles?</h3>
                     
-                    <p>This method can easily be applied to different situations. Here I use it to draw a routes on a map as the user scroll down. Here the route is drawn with just one polyline. But it could be drawn with multiple polylines and each of them could be triggered at different times.</p>
+                    <p>This method can easily be applied to different situations. Here I use it to draw a routes on a map as the user scrolls down. Here the route is drawn with just one polyline. But it could be drawn with multiple polylines and each of them could be triggered at different times to show stops within the route, etc.</p>
                     
-                    <p>To monitor the time it takes to draw the line I've created a "helper"-div that has a certain height, zero width, and is floating on the side.</p>
+                    <div id="nice" style="opacity: 0;"><strong>Nice, huh?</strong></div>
+                    
                 </div>
             
                 <div class="side-content">
@@ -121,14 +159,14 @@
             <div class="inner-wrapper">
                 <div class="main-content main-content-left">
                     <h2 class="title">Section 3: Autoplaying videos</h2>
-                    <p><a href="http://www.storybench.org/how-to-build-a-simple-narrative-web-layout/">Link to instructions.</a></p>
-                    <p>This is something I really like in a good visual digital storytelling. Videos that automatically start playing as the page is scrolled. No clicking! Who wants to click anything! At least I don't. With few lines of code the video can be made to play automatically once certain fraction of it is visible.</p>
+                  
+                    <p>This is something I really like in a good visual digital storytelling. Videos that automatically start playing as the page is scrolled, especially when they are fullscreen. No clicking! With few lines of code the video can be made to play automatically once certain fraction of it is visible.</p>
                     
                     <div class="whitespace"></div>
                 </div>
 
                     <video id="video" loop>
-                        <source src="./media/videos/grand_canyon_usa_america_arizona_675.mp4" type="video/mp4">
+                        <source src="./videos/grand_canyon_usa_america_arizona_675.mp4" type="video/mp4">
                     Your browser does not support HTML5 video.
                     </video>
 
@@ -139,25 +177,63 @@
             <div class="inner-wrapper">
                 <div class="main-content">
                     <h2 class="title">Section 4: Interactive charts</h2>
-                    <p>So far I've gotten myself familiar mainly with <strong>Chart.js</strong> though I've tried a bit of <strong>D3</strong>, too. <strong>Chart.js</strong> is a bit easier to get started with, but <strong>D3.js</strong> is the one to learn if you really want to learn to make cool stuff. If only there was more time.</p>
+                    <p>I'm also interested in making interactive visualizations and graphs. So far, I've gotten myself familiar mainly with <strong>Chart.js</strong> though I've tried <strong>D3</strong>, too. <strong>Chart.js</strong> is a bit easier to get started with, but <strong>D3.js</strong> is the one to learn if you really want to learn to make cool stuff. If only there was more time.</p>
+                    
+                    Here a graph showing temperatures:
                 </div>
+                <div style="width: 80%; margin: 2em auto;">
+                        <canvas id="lineChart" width="60", height="30"></canvas>
+                    </div>
+                
             </div>
         </section>
         
-        <div class="header" style="height: 60vh">
-            <div class="header-title">
-                <h2>Other CSS- and JS-stuff</h2>
-                <p></p>
+        <section>
+            <div class="inner-wrapper">
+                <h2 class="title">Section 5: Changing backgrounds</h2>
+                <p> Now this section shows changing backgrounds. I first tried to make this by changing the <code>background-image</code> property of a div that covers the whole screen. That worked, but not on all browsers. Here I'm using just images. First I made the images stick to the screen by changing the <code>position</code> property of the element to <code>fixed</code>, but that resulted the position to lag in Firefox, creating a very non-smooth experience. Thus, I used <code>sticky</code> property again. It doesn't work on all browsers, though, so I need to find a solution to that. Next step would be making a function that resizes the image so that it would cover the whole screen even when the height of the screen was larger than the width.</p>
+                
+                <p>With this thecnique, I'm imaging making something like this: <a href="https://www.nytimes.com/interactive/2014/10/28/sports/marathon-videos.html">NYT: The New York City Marathon</a>. Btw, did you notice the vector graphic on the right that is drawn as the page is scrolled?</p>
             </div>
-        </div>
-        
-        <section id="bg-section" class="whole-page">
-            <div id="bg1"></div>
-            <div id="bg2"></div>
+        </section>
+        <section id="bg-section">
+            <div id="bg-trigger"></div>
+                <div id="changing-img" class="whole-page">
+                    <img id="bg1" src="images/bg1.jpeg"/>
+                    <img id="bg2" src="images/bg3.jpg"/>
+            </div>
         </section>
         
+        <h1 id="end">That's all folks!</h1>
         
-        <script src="./lib/noframework.waypoints.min.js"></script>
-        <script src="./js/demo.js"></script>
+        
+        
+<!-- The Chart.js script -->
+        <script>
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Average High Temperature',
+                        data: [0, -1, 3, 10, 15, 19, 22, 21, 16, 9, 4, 1],
+                        tension: 0.2,
+                        fill: false,
+                        borderColor: "rgba(24,107,203, 0.4)"
+                    }, {
+                        label: 'Average Low Temperature',
+                        data: [-5, -7, -4, 0, 4, 9, 12, 11, 7, 3, -2, -4],
+                        tension: 0.2,
+                        fill: false
+                    }]
+                }
+            });
+            
+        </script>
+        
+        
+        <script src="lib/noframework.waypoints.min.js"></script>
+        <script src="js/waypoints.js"></script>
     </body>
 </html>
